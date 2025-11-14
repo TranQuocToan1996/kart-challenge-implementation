@@ -1,4 +1,6 @@
-export const API_BASE_URL = 'https://orderfoodonline.deno.dev/api';
+export const API_BASE_URL = import.meta.env.DEV
+  ? '/api'
+  : 'https://orderfoodonline.deno.dev/api';
 export const API_KEY = 'apitest';
 
 export const DISCOUNT_CODES = {
