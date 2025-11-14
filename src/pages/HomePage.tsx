@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useProducts } from '../hooks/useProducts';
+import { useCartStore } from '../store/cartStore';
 import { ProductCard } from '../components/ProductCard';
 import { Cart } from '../components/Cart';
 import { OrderConfirmation } from '../components/OrderConfirmation';
@@ -10,14 +11,25 @@ const ITEMS_PER_PAGE = 6; // Reduced for testing - change back to 20 for product
 
 export const HomePage = () => {
   const { data: products, isLoading, error } = useProducts();
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [confirmedOrder, setConfirmedOrder] = useState<OrderResponse | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const items = useCartStore((state) => state.items);
+  const discountCode = useCartStore((state) => state.discountCode);
+
+  const handleConfirmOrder = () => {
+    // Show confirmation modal with cart data
+    setShowConfirmation(true);
+  };
+
   const handleOrderSuccess = (order: OrderResponse) => {
     setConfirmedOrder(order);
+    setShowConfirmation(false);
   };
 
   const handleCloseConfirmation = () => {
+    setShowConfirmation(false);
     setConfirmedOrder(null);
   };
 
@@ -93,19 +105,57 @@ export const HomePage = () => {
           {/* Cart Section */}
           <div className="lg:col-span-4 order-1 lg:order-2">
             <div className="lg:sticky lg:top-8">
-              <Cart onOrderSuccess={handleOrderSuccess} />
+              <Cart onOrderSuccess={handleConfirmOrder} />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Order Confirmation Modal */}
-      {confirmedOrder && (
-        <OrderConfirmation order={confirmedOrder} onClose={handleCloseConfirmation} />
+      {/* Order Confirmation Modal (Before Purchase) */}
+      {showConfirmation && (
+        <OrderConfirmation
+          items={items}
+          discountCode={discountCode}
+          onClose={handleCloseConfirmation}
+          onOrderSuccess={handleOrderSuccess}
+        />
       )}
 
-      {/* Fixed Pagination */}
-      {totalPages > 0 && (
+      {/* Order Success Modal (After Purchase) */}
+      {confirmedOrder && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+            <div className="flex flex-col items-center text-center mb-6">
+              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mb-4">
+                <svg
+                  className="w-10 h-10 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Order Confirmed</h2>
+              <p className="text-gray-600">We hope you enjoy your food!</p>
+            </div>
+            <button
+              onClick={handleCloseConfirmation}
+              className="w-full bg-primary-orange text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 transition-colors"
+            >
+              Start New Order
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Fixed Pagination - Hide when confirmation modal is open */}
+      {totalPages > 0 && !showConfirmation && !confirmedOrder && (
         <Pagination
           currentPage={validCurrentPage}
           totalPages={totalPages}

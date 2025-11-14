@@ -1,34 +1,22 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useCartStore } from '../store/cartStore';
-import { DISCOUNT_CODES } from '../constants';
 
 export const DiscountCodeInput = () => {
   const discountCode = useCartStore((state) => state.discountCode);
+  const discountCodeError = useCartStore((state) => state.discountCodeError);
   const setDiscountCode = useCartStore((state) => state.setDiscountCode);
+  const validateAndApplyDiscountCode = useCartStore((state) => state.validateAndApplyDiscountCode);
   const getDiscountAmount = useCartStore((state) => state.getDiscountAmount);
-  
-  const [inputValue, setInputValue] = useState(discountCode || '');
-  const [error, setError] = useState<string | null>(null);
 
   const discountAmount = getDiscountAmount();
 
-  const handleApply = () => {
-    const code = inputValue.trim().toUpperCase();
-    
-    if (!code) {
-      setDiscountCode(undefined);
-      setError(null);
-      return;
-    }
+  // Sync input value with discount code when it changes externally
+  useEffect(() => {
+    setDiscountCode(discountCode);
+  }, [discountCode, setDiscountCode]);
 
-    // Validate discount code
-    const validCodes = Object.values(DISCOUNT_CODES);
-    if (validCodes.includes(code as typeof DISCOUNT_CODES[keyof typeof DISCOUNT_CODES])) {
-      setDiscountCode(code);
-      setError(null);
-    } else {
-      setError('Invalid discount code');
-    }
+  const handleApply = () => {
+    validateAndApplyDiscountCode();
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -42,10 +30,9 @@ export const DiscountCodeInput = () => {
       <div className="flex gap-2">
         <input
           type="text"
-          value={inputValue}
+          value={discountCode}
           onChange={(e) => {
-            setInputValue(e.target.value);
-            setError(null);
+            setDiscountCode(e.target.value);
           }}
           onKeyPress={handleKeyPress}
           placeholder="Enter discount code"
@@ -58,10 +45,10 @@ export const DiscountCodeInput = () => {
           Apply
         </button>
       </div>
-      {error && (
-        <p className="text-sm text-red-600">{error}</p>
+      {discountCodeError && (
+        <p className="text-sm text-red-600">{discountCodeError}</p>
       )}
-      {discountAmount > 0 && !error && (
+      {discountAmount > 0 && !discountCodeError && (
         <p className="text-sm text-green-600">
           Discount applied: -${discountAmount.toFixed(2)}
         </p>

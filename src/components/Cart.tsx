@@ -1,51 +1,34 @@
-import { useState } from 'react';
 import { useCartStore } from '../store/cartStore';
 import { CartItem } from './CartItem';
 import { DiscountCodeInput } from './DiscountCodeInput';
-import { useOrder } from '../hooks/useOrder';
-import type { OrderRequest, OrderResponse } from '../types';
 
 interface CartProps {
-  onOrderSuccess: (order: OrderResponse) => void;
+  onOrderSuccess: () => void;
 }
 
 export const Cart = ({ onOrderSuccess }: CartProps) => {
   const items = useCartStore((state) => state.items);
   const getTotalItems = useCartStore((state) => state.getTotalItems);
-  const getSubtotal = useCartStore((state) => state.getSubtotal);
   const getTotal = useCartStore((state) => state.getTotal);
   const getDiscountAmount = useCartStore((state) => state.getDiscountAmount);
-  const discountCode = useCartStore((state) => state.discountCode);
-
-  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
-  const orderMutation = useOrder();
+  const validateAndApplyDiscountCode = useCartStore((state) => state.validateAndApplyDiscountCode);
 
   const totalItems = getTotalItems();
-  const subtotal = getSubtotal();
   const total = getTotal();
   const discountAmount = getDiscountAmount();
 
-  const handleConfirmOrder = async () => {
+  const handleConfirmOrder = () => {
     if (items.length === 0) return;
 
-    setIsPlacingOrder(true);
-    try {
-      const orderData: OrderRequest = {
-        items: items.map((item) => ({
-          productId: item.product.id,
-          quantity: item.quantity,
-        })),
-        couponCode: discountCode || undefined,
-      };
-
-      const response = await orderMutation.mutateAsync(orderData);
-      onOrderSuccess(response);
-    } catch (error) {
-      console.error('Failed to place order:', error);
-      alert('Failed to place order. Please try again.');
-    } finally {
-      setIsPlacingOrder(false);
+    // Validate and apply discount code before showing confirmation
+    const isValid = validateAndApplyDiscountCode();
+    if (!isValid) {
+      // Don't proceed if discount code is invalid
+      return;
     }
+
+    // Just show the confirmation modal, don't call API yet
+    onOrderSuccess();
   };
 
   if (items.length === 0) {
@@ -165,10 +148,10 @@ export const Cart = ({ onOrderSuccess }: CartProps) => {
 
         <button
           onClick={handleConfirmOrder}
-          disabled={isPlacingOrder || items.length === 0}
+          disabled={items.length === 0}
           className="w-full bg-primary-orange text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
-          {isPlacingOrder ? 'Placing Order...' : 'Confirm Order'}
+          Confirm Order
         </button>
       </div>
     </div>
