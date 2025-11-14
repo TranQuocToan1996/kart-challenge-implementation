@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "40ab311d-df7f-464e-bd36-a22cc4da5804",
+		"name": "kart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18992375"
+	},
+	"item": [
+		{
+			"name": "GET list product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://orderfoodonline.deno.dev/api/product",
+					"protocol": "https",
+					"host": [
+						"orderfoodonline",
+						"deno",
+						"dev"
+					],
+					"path": [
+						"api",
+						"product"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET list product",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://orderfoodonline.deno.dev/api/product",
+							"protocol": "https",
+							"host": [
+								"orderfoodonline",
+								"deno",
+								"dev"
+							],
+							"path": [
+								"api",
+								"product"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "content-type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "content-encoding",
+							"value": "br"
+						},
+						{
+							"key": "content-length",
+							"value": "507"
+						},
+						{
+							"key": "date",
+							"value": "Fri, 14 Nov 2025 14:58:45 GMT"
+						},
+						{
+							"key": "via",
+							"value": "http/1.1 edgeproxy-h"
+						},
+						{
+							"key": "server",
+							"value": "deno/gcp-asia-southeast1"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"1\",\n        \"image\": {\n            \"thumbnail\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-thumbnail.jpg\",\n            \"mobile\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-mobile.jpg\",\n            \"tablet\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-tablet.jpg\",\n            \"desktop\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-desktop.jpg\"\n        },\n        \"name\": \"Waffle with Berries\",\n        \"category\": \"Waffle\",\n        \"price\": 6.5\n    },\n    {\n        \"id\": \"2\",\n        \"image\": {\n            \"thumbnail\": \"https://orderfoodonline.deno.dev/public/images/image-creme-brulee-thumbnail.jpg\",\n            \"mobile\": \"https://orderfoodonline.deno.dev/public/images/image-creme-brulee-mobile.jpg\",\n            \"tablet\": \"https://orderfoodonline.deno.dev/public/images/image-creme-brulee-tablet.jpg\",\n            \"desktop\": \"https://orderfoodonline.deno.dev/public/images/image-creme-brulee-desktop.jpg\"\n        },\n        \"name\": \"Vanilla Bean Crème Brûlée\",\n        \"category\": \"Crème Brûlée\",\n        \"price\": 7\n    },\n    {\n        \"id\": \"3\",\n        \"image\": {\n            \"thumbnail\": \"https://orderfoodonline.deno.dev/public/images/image-macaron-thumbnail.jpg\",\n            \"mobile\": \"https://orderfoodonline.deno.dev/public/images/image-macaron-mobile.jpg\",\n            \"tablet\": \"https://orderfoodonline.deno.dev/public/images/image-macaron-tablet.jpg\",\n            \"desktop\": \"https://orderfoodonline.deno.dev/public/images/image-macaron-desktop.jpg\"\n        },\n        \"name\": \"Macaron Mix of Five\",\n        \"category\": \"Macaron\",\n        \"price\": 8\n    },\n    {\n        \"id\": \"4\",\n        \"image\": {\n            \"thumbnail\": \"https://orderfoodonline.deno.dev/public/images/image-tiramisu-thumbnail.jpg\",\n            \"mobile\": \"https://orderfoodonline.deno.dev/public/images/image-tiramisu-mobile.jpg\",\n            \"tablet\": \"https://orderfoodonline.deno.dev/public/images/image-tiramisu-tablet.jpg\",\n            \"desktop\": \"https://orderfoodonline.deno.dev/public/images/image-tiramisu-desktop.jpg\"\n        },\n        \"name\": \"Classic Tiramisu\",\n        \"category\": \"Tiramisu\",\n        \"price\": 5.5\n    },\n    {\n        \"id\": \"5\",\n        \"image\": {\n            \"thumbnail\": \"https://orderfoodonline.deno.dev/public/images/image-baklava-thumbnail.jpg\",\n            \"mobile\": \"https://orderfoodonline.deno.dev/public/images/image-baklava-mobile.jpg\",\n            \"tablet\": \"https://orderfoodonline.deno.dev/public/images/image-baklava-tablet.jpg\",\n            \"desktop\": \"https://orderfoodonline.deno.dev/public/images/image-baklava-desktop.jpg\"\n        },\n        \"name\": \"Pistachio Baklava\",\n        \"category\": \"Baklava\",\n        \"price\": 4\n    },\n    {\n        \"id\": \"6\",\n        \"image\": {\n            \"thumbnail\": \"https://orderfoodonline.deno.dev/public/images/image-meringue-thumbnail.jpg\",\n            \"mobile\": \"https://orderfoodonline.deno.dev/public/images/image-meringue-mobile.jpg\",\n            \"tablet\": \"https://orderfoodonline.deno.dev/public/images/image-meringue-tablet.jpg\",\n            \"desktop\": \"https://orderfoodonline.deno.dev/public/images/image-meringue-desktop.jpg\"\n        },\n        \"name\": \"Lemon Meringue Pie\",\n        \"category\": \"Pie\",\n        \"price\": 5\n    },\n    {\n        \"id\": \"7\",\n        \"image\": {\n            \"thumbnail\": \"https://orderfoodonline.deno.dev/public/images/image-cake-thumbnail.jpg\",\n            \"mobile\": \"https://orderfoodonline.deno.dev/public/images/image-cake-mobile.jpg\",\n            \"tablet\": \"https://orderfoodonline.deno.dev/public/images/image-cake-tablet.jpg\",\n            \"desktop\": \"https://orderfoodonline.deno.dev/public/images/image-cake-desktop.jpg\"\n        },\n        \"name\": \"Red Velvet Cake\",\n        \"category\": \"Cake\",\n        \"price\": 4.5\n    },\n    {\n        \"id\": \"8\",\n        \"image\": {\n            \"thumbnail\": \"https://orderfoodonline.deno.dev/public/images/image-brownie-thumbnail.jpg\",\n            \"mobile\": \"https://orderfoodonline.deno.dev/public/images/image-brownie-mobile.jpg\",\n            \"tablet\": \"https://orderfoodonline.deno.dev/public/images/image-brownie-tablet.jpg\",\n            \"desktop\": \"https://orderfoodonline.deno.dev/public/images/image-brownie-desktop.jpg\"\n        },\n        \"name\": \"Salted Caramel Brownie\",\n        \"category\": \"Brownie\",\n        \"price\": 4.5\n    },\n    {\n        \"id\": \"9\",\n        \"image\": {\n            \"thumbnail\": \"https://orderfoodonline.deno.dev/public/images/image-panna-cotta-thumbnail.jpg\",\n            \"mobile\": \"https://orderfoodonline.deno.dev/public/images/image-panna-cotta-mobile.jpg\",\n            \"tablet\": \"https://orderfoodonline.deno.dev/public/images/image-panna-cotta-tablet.jpg\",\n            \"desktop\": \"https://orderfoodonline.deno.dev/public/images/image-panna-cotta-desktop.jpg\"\n        },\n        \"name\": \"Vanilla Panna Cotta\",\n        \"category\": \"Panna Cotta\",\n        \"price\": 6.5\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get product by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://orderfoodonline.deno.dev/api/product/1",
+					"protocol": "https",
+					"host": [
+						"orderfoodonline",
+						"deno",
+						"dev"
+					],
+					"path": [
+						"api",
+						"product",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get product by id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://orderfoodonline.deno.dev/api/product/1",
+							"protocol": "https",
+							"host": [
+								"orderfoodonline",
+								"deno",
+								"dev"
+							],
+							"path": [
+								"api",
+								"product",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "content-type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "content-encoding",
+							"value": "br"
+						},
+						{
+							"key": "content-length",
+							"value": "138"
+						},
+						{
+							"key": "date",
+							"value": "Fri, 14 Nov 2025 14:58:50 GMT"
+						},
+						{
+							"key": "via",
+							"value": "http/1.1 edgeproxy-h"
+						},
+						{
+							"key": "server",
+							"value": "deno/gcp-asia-southeast1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"1\",\n    \"image\": {\n        \"thumbnail\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-thumbnail.jpg\",\n        \"mobile\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-mobile.jpg\",\n        \"tablet\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-tablet.jpg\",\n        \"desktop\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-desktop.jpg\"\n    },\n    \"name\": \"Waffle with Berries\",\n    \"category\": \"Waffle\",\n    \"price\": 6.5\n}"
+				}
+			]
+		},
+		{
+			"name": "POST order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "api_key",
+						"value": "YOUR_SECRET_TOKEN"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"couponCode\": \"\",\n  \"items\": [\n    {\n      \"productId\": \"\",\n      \"quantity\": 1\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://orderfoodonline.deno.dev/api/order",
+					"protocol": "https",
+					"host": [
+						"orderfoodonline",
+						"deno",
+						"dev"
+					],
+					"path": [
+						"api",
+						"order"
+					]
+				},
+				"description": "Generated from cURL: curl https://orderfoodonline.deno.dev/api/order \\\n  --request POST \\\n  --header 'Content-Type: application/json' \\\n  --header 'api_key: YOUR_SECRET_TOKEN' \\\n  --data '{\n  \"couponCode\": \"\",\n  \"items\": [\n    {\n      \"productId\": \"\",\n      \"quantity\": 1\n    }\n  ]\n}'"
+			},
+			"response": [
+				{
+					"name": "https://orderfoodonline.deno.dev/api/order",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "api_key",
+								"value": "YOUR_SECRET_TOKEN"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"couponCode\": \"A\",\n  \"items\": [\n    {\n      \"productId\": \"1\",\n      \"quantity\": 1\n    },\n        {\n      \"productId\": \"1\",\n      \"quantity\": 1\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://orderfoodonline.deno.dev/api/order",
+							"protocol": "https",
+							"host": [
+								"orderfoodonline",
+								"deno",
+								"dev"
+							],
+							"path": [
+								"api",
+								"order"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "content-type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "content-encoding",
+							"value": "br"
+						},
+						{
+							"key": "content-length",
+							"value": "227"
+						},
+						{
+							"key": "date",
+							"value": "Fri, 14 Nov 2025 14:23:13 GMT"
+						},
+						{
+							"key": "via",
+							"value": "http/1.1 edgeproxy-h"
+						},
+						{
+							"key": "server",
+							"value": "deno/gcp-asia-southeast1"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"couponCode\": \"A\",\n    \"items\": [\n        {\n            \"productId\": \"1\",\n            \"quantity\": 1\n        },\n        {\n            \"productId\": \"1\",\n            \"quantity\": 1\n        }\n    ],\n    \"id\": \"27d9142e-f523-46a0-91af-9d04a4bb6b22\",\n    \"products\": [\n        {\n            \"id\": \"1\",\n            \"image\": {\n                \"thumbnail\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-thumbnail.jpg\",\n                \"mobile\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-mobile.jpg\",\n                \"tablet\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-tablet.jpg\",\n                \"desktop\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-desktop.jpg\"\n            },\n            \"name\": \"Waffle with Berries\",\n            \"category\": \"Waffle\",\n            \"price\": 6.5\n        },\n        {\n            \"id\": \"1\",\n            \"image\": {\n                \"thumbnail\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-thumbnail.jpg\",\n                \"mobile\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-mobile.jpg\",\n                \"tablet\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-tablet.jpg\",\n                \"desktop\": \"https://orderfoodonline.deno.dev/public/images/image-waffle-desktop.jpg\"\n            },\n            \"name\": \"Waffle with Berries\",\n            \"category\": \"Waffle\",\n            \"price\": 6.5\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
+}
