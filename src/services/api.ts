@@ -9,9 +9,28 @@ const apiClient = axios.create({
   },
 });
 
+const loadFallbackProducts = async (): Promise<Product[]> => {
+  try {
+    const response = await fetch('/product.json');
+    if (!response.ok) {
+      throw new Error('Failed to load fallback products');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to load fallback products:', error);
+    return [];
+  }
+};
+
 export const getProducts = async (): Promise<Product[]> => {
-  const response = await apiClient.get<Product[]>('/product');
-  return response.data;
+  try {
+    const response = await apiClient.get<Product[]>('/product');
+    return response.data;
+  } catch (error) {
+    console.warn('API call failed, using fallback data:', error);
+    // Fallback to local JSON file
+    return await loadFallbackProducts();
+  }
 };
 
 export const getProductById = async (id: string): Promise<Product> => {
