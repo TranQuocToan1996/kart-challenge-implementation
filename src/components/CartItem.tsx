@@ -14,6 +14,10 @@ export const CartItem = ({ item }: CartItemProps) => {
     removeItem(product.id);
   };
 
+  const priceFormattedInCart = (price: number, quantity: number, totalItemPrice: number) => {
+    return `${quantity}x $${price.toFixed(2)} = $${totalItemPrice.toFixed(2)}`
+  }
+
   return (
     <div className="flex items-center gap-3 py-3 border-b border-gray-200 last:border-b-0">
       <img
@@ -25,7 +29,7 @@ export const CartItem = ({ item }: CartItemProps) => {
       <div className="flex-1 min-w-0">
         <h4 className="text-sm font-semibold text-gray-900 truncate">{product.name}</h4>
         <p className="text-sm text-gray-600">
-          {quantity}x @${product.price.toFixed(2)} ${itemTotal.toFixed(2)}
+          {priceFormattedInCart(product.price, quantity, itemTotal)}
         </p>
       </div>
       <button
