@@ -34,7 +34,7 @@ export const CartItem = ({ item }: CartItemProps) => {
       </div>
       <button
         onClick={handleRemove}
-        className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 transition-colors flex-shrink-0"
+        className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 transition-colors shrink-0"
         aria-label={`Remove ${product.name} from cart`}
       >
         <svg
