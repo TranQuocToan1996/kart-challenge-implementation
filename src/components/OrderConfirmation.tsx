@@ -73,6 +73,7 @@ export const OrderConfirmation = ({ items, discountCode, onClose, onOrderSuccess
       onOrderSuccess(response);
       onClose();
     } catch (error) {
+      // TODO: UI fire error toast
       console.error('Failed to place order:', error);
       alert('Failed to place order. Please try again.');
     } finally {

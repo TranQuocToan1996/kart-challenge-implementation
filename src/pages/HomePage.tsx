@@ -7,7 +7,7 @@ import { OrderConfirmation } from '../components/OrderConfirmation';
 import { Pagination } from '../components/Pagination';
 import type { OrderResponse } from '../types';
 
-const ITEMS_PER_PAGE = 6; // Reduced for testing - change back to 20 for production
+const ITEMS_PER_PAGE = 6;
 
 export const HomePage = () => {
   const { data: products, isLoading, error } = useProducts();

@@ -1,25 +1,34 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { useCartStore } from '../store/cartStore';
 
 export const DiscountCodeInput = () => {
-  const discountCode = useCartStore((state) => state.discountCode);
+  const discountCodeInput = useCartStore((state) => state.discountCodeInput);
+  const setDiscountCodeInput = useCartStore((state) => state.setDiscountCodeInput);
   const discountCodeError = useCartStore((state) => state.discountCodeError);
-  const setDiscountCode = useCartStore((state) => state.setDiscountCode);
   const validateAndApplyDiscountCode = useCartStore((state) => state.validateAndApplyDiscountCode);
   const getDiscountAmount = useCartStore((state) => state.getDiscountAmount);
 
   const discountAmount = getDiscountAmount();
 
-  // Sync input value with discount code when it changes externally
-  useEffect(() => {
-    setDiscountCode(discountCode);
-  }, [discountCode, setDiscountCode]);
+  // // Sync input value with discount code when it changes externally
+  // useEffect(() => {
+  //   setDiscountCode(discountCode);
+  // }, [discountCode, setDiscountCode]);
 
   const handleApply = () => {
     validateAndApplyDiscountCode();
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newCode = e.target.value;
+    setDiscountCodeInput(newCode);
+    if (!newCode) {
+      // Validate clear the state
+      validateAndApplyDiscountCode()
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleApply();
     }
@@ -30,11 +39,9 @@ export const DiscountCodeInput = () => {
       <div className="flex gap-2">
         <input
           type="text"
-          value={discountCode}
-          onChange={(e) => {
-            setDiscountCode(e.target.value);
-          }}
-          onKeyPress={handleKeyPress}
+          value={discountCodeInput}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
           placeholder="Enter discount code"
           className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange focus:border-transparent"
         />
