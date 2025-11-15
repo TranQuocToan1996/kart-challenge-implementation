@@ -4,6 +4,7 @@ import type { Product, OrderRequest, OrderResponse } from '../types';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
+  timeout: 30000, // 30 seconds
   headers: {
     'Content-Type': 'application/json',
   },
@@ -27,7 +28,11 @@ export const getProducts = async (): Promise<Product[]> => {
     const response = await apiClient.get<Product[]>('/product');
     return response.data;
   } catch (error) {
-    console.warn('API call failed, using fallback data:', error);
+    if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
+      console.warn('Request timeout, using fallback data:', error);
+    } else {
+      console.warn('API call failed, using fallback data:', error);
+    }
     // Fallback to local JSON file
     return await loadFallbackProducts();
   }
@@ -39,11 +44,21 @@ export const getProductById = async (id: string): Promise<Product> => {
 };
 
 export const placeOrder = async (orderData: OrderRequest): Promise<OrderResponse> => {
-  const response = await apiClient.post<OrderResponse>('/order', orderData, {
-    headers: {
-      api_key: API_KEY,
-    },
-  });
-  return response.data;
+  try {
+    const response = await apiClient.post<OrderResponse>('/order', orderData, {
+      headers: {
+        api_key: API_KEY,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
+      throw new Error('Request timeout: The server took too long to respond. Please try again.');
+    }
+    if (axios.isAxiosError(error) && error.response) {
+      throw new Error(error.response.data?.message || 'Failed to place order. Please try again.');
+    }
+    throw error;
+  }
 };
 

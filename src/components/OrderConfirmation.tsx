@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useCartStore } from '../store/cartStore';
 import { useOrder } from '../hooks/useOrder';
 import { DISCOUNT_CODES } from '../constants';
+import { Loading } from './Loading';
 import type { CartItem, OrderRequest, OrderResponse } from '../types';
 
 interface OrderConfirmationProps {
@@ -20,6 +21,7 @@ export const OrderConfirmation = ({ items, discountCode, onClose, onOrderSuccess
   const getDiscountAmount = useCartStore((state) => state.getDiscountAmount);
 
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+  const [orderError, setOrderError] = useState<string | null>(null);
   const orderMutation = useOrder();
 
   // Re-apply discount code when modal opens
@@ -59,6 +61,7 @@ export const OrderConfirmation = ({ items, discountCode, onClose, onOrderSuccess
 
   const handleBuy = async () => {
     setIsPlacingOrder(true);
+    setOrderError(null);
     try {
       const orderData: OrderRequest = {
         items: items.map((item) => ({
@@ -73,9 +76,12 @@ export const OrderConfirmation = ({ items, discountCode, onClose, onOrderSuccess
       onOrderSuccess(response);
       onClose();
     } catch (error) {
-      // TODO: UI fire error toast
       console.error('Failed to place order:', error);
-      alert('Failed to place order. Please try again.');
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'Failed to place order. Please try again.';
+      setOrderError(errorMessage);
     } finally {
       setIsPlacingOrder(false);
     }
@@ -84,10 +90,16 @@ export const OrderConfirmation = ({ items, discountCode, onClose, onOrderSuccess
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
-        <div className="flex flex-col items-center text-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Confirm Your Order</h2>
-          <p className="text-gray-600">Please review your order details before confirming</p>
-        </div>
+        {isPlacingOrder ? (
+          <div className="py-8">
+            <Loading message="Placing your order..." size="lg" />
+          </div>
+        ) : (
+          <>
+            <div className="flex flex-col items-center text-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Confirm Your Order</h2>
+              <p className="text-gray-600">Please review your order details before confirming</p>
+            </div>
 
         <div className="bg-gray-50 rounded-lg p-4 mb-6 space-y-3">
           {items.map((item) => {
@@ -137,22 +149,48 @@ export const OrderConfirmation = ({ items, discountCode, onClose, onOrderSuccess
           </div>
         </div>
 
-        <div className="flex gap-3">
-          <button
-            onClick={handleCancel}
-            disabled={isPlacingOrder}
-            className="flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-semibold text-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleBuy}
-            disabled={isPlacingOrder || items.length === 0}
-            className="flex-1 bg-primary-orange text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isPlacingOrder ? 'Placing Order...' : 'Buy'}
-          </button>
-        </div>
+            {orderError && (
+              <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <svg
+                    className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-red-900 mb-1">Order Failed</p>
+                    <p className="text-sm text-red-700">{orderError}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="flex gap-3">
+              <button
+                onClick={handleCancel}
+                disabled={isPlacingOrder}
+                className="flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-semibold text-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleBuy}
+                disabled={isPlacingOrder || items.length === 0}
+                className="flex-1 bg-primary-orange text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Buy
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -74,7 +74,5 @@ export default defineConfig([
 
 
 
-TODO:
 TODO: Add loading states for:
-Order placement
-Discount code validation
+TODO: Fix design

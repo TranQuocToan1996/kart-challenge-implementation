@@ -5,6 +5,7 @@ import { ProductCard } from '../components/ProductCard';
 import { Cart } from '../components/Cart';
 import { OrderConfirmation } from '../components/OrderConfirmation';
 import { Pagination } from '../components/Pagination';
+import { Loading } from '../components/Loading';
 import type { OrderResponse } from '../types';
 
 const ITEMS_PER_PAGE = 6;
@@ -63,22 +64,46 @@ export const HomePage = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-orange mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading products...</p>
-        </div>
+        <Loading message="Loading products..." size="lg" />
       </div>
     );
   }
 
   if (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const isTimeout =
+      errorMessage.includes('timeout') ||
+      errorMessage.includes('ECONNABORTED') ||
+      errorMessage.includes('Request timeout');
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-600 mb-4">Failed to load products</p>
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="text-center max-w-md">
+          <div className="mb-4">
+            <svg
+              className="w-16 h-16 text-red-500 mx-auto"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+          <h2 className="text-xl font-bold text-gray-900 mb-2">
+            {isTimeout ? 'Request Timeout' : 'Failed to Load Products'}
+          </h2>
+          <p className="text-gray-600 mb-6">
+            {isTimeout
+              ? 'The request took longer than 30 seconds. Please check your connection and try again.'
+              : 'Unable to load products. Please try again.'}
+          </p>
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-primary-orange text-white rounded-lg hover:bg-opacity-90"
+            className="px-6 py-3 bg-primary-orange text-white rounded-lg font-semibold hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 transition-colors"
           >
             Retry
           </button>
