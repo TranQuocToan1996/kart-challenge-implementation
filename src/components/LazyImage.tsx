@@ -21,7 +21,6 @@ export const LazyImage = ({
 }: LazyImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
-  const [hasError, setHasError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
@@ -29,12 +28,15 @@ export const LazyImage = ({
     if (!img) return;
 
     // Check if image is already in viewport (for above-the-fold images)
-    const rect = img.getBoundingClientRect();
-    const marginValue = parseInt(rootMargin) || 0;
-    const isVisible = rect.top < window.innerHeight + marginValue && rect.bottom > -marginValue;
-    
-    if (isVisible) {
-      setIsInView(true);
+    const checkVisibility = () => {
+      const rect = img.getBoundingClientRect();
+      const marginValue = parseInt(rootMargin) || 0;
+      return rect.top < window.innerHeight + marginValue && rect.bottom > -marginValue;
+    };
+
+    // Use setTimeout to avoid synchronous setState in effect
+    if (checkVisibility()) {
+      setTimeout(() => setIsInView(true), 0);
       return;
     }
 
@@ -66,7 +68,8 @@ export const LazyImage = ({
   };
 
   const handleError = () => {
-    setHasError(true);
+    // Error handling - could be extended to show error state
+    console.warn('Failed to load image:', src);
   };
 
   // Render responsive picture element
