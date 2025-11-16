@@ -38,19 +38,11 @@ export const CartItem = ({ item }: CartItemProps) => {
         className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 transition-colors shrink-0"
         aria-label={`Remove ${product.name} from cart`}
       >
-        <svg
-          className="w-5 h-5 text-gray-500"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
+        <img
+          src="/remove_product_from_cart.png"
+          alt={`Remove ${product.name} from cart`}
+          className="w-[18px] h-[18px]"
+        />
       </button>
     </div>
   );

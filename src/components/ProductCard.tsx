@@ -43,20 +43,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 onClick={handleAddToCart}
                 className="w-full px-4 py-2.5 bg-white text-black rounded-[19px] border border-[#B8A1A2] font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 transition-colors flex items-center justify-center gap-2 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] relative z-10"
               >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
+                <img
+                  src="/add_to_cart_icon.png"
+                  alt="Add to cart"
+                  className="w-[18px] h-[18px]"
+                />
                 Add to Cart
               </button>
             )}
@@ -64,9 +55,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </div>
       </div>
       <div className="p-4 relative z-0 pt-8">
-        <p className="text-sm text-gray-500 mb-1">{product.category}</p>
+        <p className="text-sm text-[#B5A8A5] mb-1">{product.category}</p>
         <h3 className="text-base font-semibold text-gray-900 mb-2">{product.name}</h3>
-        <span className="text-lg font-semibold text-gray-900">${product.price.toFixed(2)}</span>
+        <span className="text-lg font-semibold text-[#BD7866]">${product.price.toFixed(2)}</span>
       </div>
     </div>
   );
