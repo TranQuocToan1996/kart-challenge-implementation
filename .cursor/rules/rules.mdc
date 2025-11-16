@@ -1,0 +1,52 @@
+---
+alwaysApply: true
+---
+
+Here are clean and simple general instructions you can give to Cursor IDE so it writes good TypeScript + React code for your project.
+
+1. Use modern React with functional components and hooks only. Do not use class components.
+2. Write strongly-typed code with TypeScript. Define all interfaces and types clearly.
+3. Follow a clean folder structure: components, pages, hooks, services, utils, types.
+4. Use React Query (or your chosen library) for API requests, caching, and mutation handling.
+5. Always separate UI logic and business logic. UI components must be presentational; network logic goes in services.
+6. Use environment variables for API base URLs.
+7. Validate all incoming API responses with types or schemas.
+8. Write reusable components. Avoid duplication.
+9. Use Tailwind CSS (or your chosen style system) consistently.
+10. Follow predictable naming: component names in PascalCase, functions in camelCase, constants in UPPER_CASE.
+11. Add error handling for all API calls and show user-friendly error messages.
+12. Keep components small. Extract custom hooks when logic is complex.
+13. Apply ESLint + Prettier rules automatically in each file.
+14. Add loading states, empty states, and error states for all async UI.
+15. Write code that is self-documenting. Add comments only when logic is not obvious.
+16. Use Zustand, Redux Toolkit, or Context API for global state (choose one).
+17. Do not hardcode text. Put them in a constants file when reused.
+18. Ensure accessibility: correct aria attributes and semantic HTML.
+19. Add unit tests for utilities and key components.
+20. When writing API integration, follow the API design you already made. Use typed request and response objects.
+
+
+Here are simple, clean **Cursor IDE rules** you can paste into your project as your coding standard.
+They are short, strict, and easy for Cursor to follow.
+
+1. Always write React code using functional components and hooks. Never use class components.
+2. Use TypeScript for every file. All props, states, and API data must be fully typed.
+3. Follow this folder structure: `components/`, `pages/`, `hooks/`, `services/`, `utils/`, `types/`.
+4. UI components must be clean and presentational. No API logic inside components.
+5. All API calls go into `services/` and must return typed data.
+6. Use React Query for data fetching, caching, mutations, loading, and error states.
+7. Use Tailwind CSS for styling. No inline CSS unless necessary.
+8. Keep components small. Extract custom hooks for complex logic.
+9. Use environment variables for API URLs. Never hardcode backend endpoints.
+10. Apply ESLint + Prettier formatting automatically.
+11. Use semantic HTML and proper accessibility attributes.
+12. Reuse components. Do not duplicate code.
+13. Use camelCase for variables/functions, PascalCase for components, UPPER_CASE for constants.
+14. Add loading, empty, and error states for all async UI.
+15. Keep business logic in hooks or services, not in UI components.
+16. Use Zustand or Context API for global state (choose one).
+17. Add comments only when logic is non-obvious.
+18. Prefer composition over inheritance.
+19. Use absolute imports (`@/components/...`) instead of relative imports when possible.
+20. Follow your existing BE/FE design strictly when generating code.
+
