@@ -3,6 +3,7 @@ import { useCartStore } from '../store/cartStore';
 import { useOrder } from '../hooks/useOrder';
 import { DISCOUNT_CODES } from '../constants';
 import { Loading } from './Loading';
+import { LazyImage } from './LazyImage'; // ✅ TODO change: Use lazy loading component
 import type { CartItem, OrderRequest, OrderResponse } from '../types';
 
 interface OrderConfirmationProps {
@@ -101,53 +102,53 @@ export const OrderConfirmation = ({ items, discountCode, onClose, onOrderSuccess
               <p className="text-gray-600">Please review your order details before confirming</p>
             </div>
 
-        <div className="bg-gray-50 rounded-lg p-4 mb-6 space-y-3">
-          {items.map((item) => {
-            const itemTotal = item.product.price * item.quantity;
-            return (
-              <div key={item.product.id} className="flex items-center gap-3">
-                <img
-                  src={item.product.image.thumbnail}
-                  alt={item.product.name}
-                  className="w-16 h-16 object-cover rounded-md"
-                  loading="lazy"
-                />
-                <div className="flex-1 min-w-0">
-                  <h4 className="text-sm font-semibold text-gray-900 truncate">
-                    {item.product.name}
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    {item.quantity}x @ ${item.product.price.toFixed(2)} ${itemTotal.toFixed(2)}
-                  </p>
+            <div className="bg-gray-50 rounded-lg p-4 mb-6 space-y-3">
+              {items.map((item) => {
+                const itemTotal = item.product.price * item.quantity;
+                return (
+                  <div key={item.product.id} className="flex items-center gap-3">
+                    <LazyImage
+                      src={item.product.image.thumbnail}
+                      alt={item.product.name}
+                      className="w-16 h-16 object-cover rounded-md"
+                      rootMargin="20px" // ✅ TODO change: Modal images load immediately when visible
+                    />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        {item.product.name}
+                      </h4>
+                      <p className="text-sm text-gray-600">
+                        {item.quantity}x @ ${item.product.price.toFixed(2)} ${itemTotal.toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+
+              <div className="pt-3 space-y-2 border-t border-gray-200">
+                <div className="flex justify-between items-center text-sm text-gray-600">
+                  <span>Price</span>
+                  <span>${subtotal.toFixed(2)}</span>
+                </div>
+
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-gray-600">Discount Code:</span>
+                  <span className="font-semibold text-gray-900">{displayDiscountCode || '—'}</span>
+                </div>
+
+                <div className="flex justify-between items-center text-sm">
+                  <span className={discountAmount > 0 ? 'text-green-600' : 'text-gray-600'}>Reduce Price</span>
+                  <span className={discountAmount > 0 ? 'text-green-600' : 'text-gray-600'}>
+                    {discountAmount > 0 ? `-$${discountAmount.toFixed(2)}` : '$0.00'}
+                  </span>
+                </div>
+
+                <div className="flex justify-between items-center pt-2 border-t border-gray-200">
+                  <span className="text-base font-semibold text-gray-900">Final Price</span>
+                  <span className="text-xl font-bold text-gray-900">${finalTotal.toFixed(2)}</span>
                 </div>
               </div>
-            );
-          })}
-
-          <div className="pt-3 space-y-2 border-t border-gray-200">
-            <div className="flex justify-between items-center text-sm text-gray-600">
-              <span>Price</span>
-              <span>${subtotal.toFixed(2)}</span>
             </div>
-
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-gray-600">Discount Code:</span>
-              <span className="font-semibold text-gray-900">{displayDiscountCode || '—'}</span>
-            </div>
-
-            <div className="flex justify-between items-center text-sm">
-              <span className={discountAmount > 0 ? 'text-green-600' : 'text-gray-600'}>Reduce Price</span>
-              <span className={discountAmount > 0 ? 'text-green-600' : 'text-gray-600'}>
-                {discountAmount > 0 ? `-$${discountAmount.toFixed(2)}` : '$0.00'}
-              </span>
-            </div>
-
-            <div className="flex justify-between items-center pt-2 border-t border-gray-200">
-              <span className="text-base font-semibold text-gray-900">Final Price</span>
-              <span className="text-xl font-bold text-gray-900">${finalTotal.toFixed(2)}</span>
-            </div>
-          </div>
-        </div>
 
             {orderError && (
               <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">

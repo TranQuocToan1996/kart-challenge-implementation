@@ -1,5 +1,6 @@
 import { useCartStore } from '../store/cartStore';
 import { QuantitySelector } from './QuantitySelector';
+import { LazyImage } from './LazyImage'; // ✅ TODO change: Use lazy loading component
 import type { Product } from '../types';
 
 interface ProductCardProps {
@@ -9,7 +10,7 @@ interface ProductCardProps {
 export const ProductCard = ({ product }: ProductCardProps) => {
   const addItem = useCartStore((state) => state.addItem);
   const items = useCartStore((state) => state.items);
-  
+
   const cartItem = items.find((item) => item.product.id === product.id);
   const isInCart = !!cartItem;
 
@@ -20,17 +21,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow focus-within:ring-2 focus-within:ring-primary-orange focus-within:ring-offset-2">
       <div className="relative w-full aspect-square overflow-hidden">
-        <picture>
-          <source media="(min-width: 1440px)" srcSet={product.image.desktop} />
-          <source media="(min-width: 768px)" srcSet={product.image.tablet} />
-          <source media="(min-width: 375px)" srcSet={product.image.mobile} />
-          <img
-            src={product.image.thumbnail}
-            alt={product.name}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-        </picture>
+        <LazyImage
+          src={product.image.thumbnail}
+          sources={[
+            { media: '(min-width: 1440px)', srcSet: product.image.desktop },
+            { media: '(min-width: 768px)', srcSet: product.image.tablet },
+            { media: '(min-width: 375px)', srcSet: product.image.mobile },
+          ]}
+          alt={product.name}
+          className="w-full h-full object-cover"
+          rootMargin="100px" // ✅ TODO change: Start loading 100px before visible
+        />
       </div>
       <div className="p-4">
         <p className="text-sm text-gray-500 mb-1">{product.category}</p>

@@ -1,4 +1,5 @@
 import { useCartStore } from '../store/cartStore';
+import { LazyImage } from './LazyImage'; // ✅ TODO change: Use lazy loading component
 import type { CartItem as CartItemType } from '../types';
 
 interface CartItemProps {
@@ -20,11 +21,11 @@ export const CartItem = ({ item }: CartItemProps) => {
 
   return (
     <div className="flex items-center gap-3 py-3 border-b border-gray-200 last:border-b-0">
-      <img
+      <LazyImage
         src={product.image.thumbnail}
         alt={product.name}
         className="w-16 h-16 object-cover rounded-md"
-        loading="lazy"
+        rootMargin="20px" // ✅ TODO change: Cart items load when closer to viewport
       />
       <div className="flex-1 min-w-0">
         <h4 className="text-sm font-semibold text-gray-900 truncate">{product.name}</h4>
