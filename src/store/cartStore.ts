@@ -3,6 +3,8 @@ import type { Product, CartItem } from '../types';
 import { calculateDiscount } from '../utils/discount';
 import { DISCOUNT_CODES } from '../constants';
 
+import { persist, createJSONStorage } from 'zustand/middleware';
+
 interface CartStore {
   items: CartItem[];
   discountCode: string | undefined;
@@ -22,7 +24,9 @@ interface CartStore {
   getDiscountAmount: () => number;
 }
 
-export const useCartStore = create<CartStore>((set, get) => ({
+const CART_STORAGE_KEY = 'cart';
+
+export const useCartStore = create<CartStore>()(persist((set, get) => ({
   items: [],
   discountCode: undefined,
   discountCodeInput: '',
@@ -122,5 +126,8 @@ export const useCartStore = create<CartStore>((set, get) => ({
     const discountResult = calculateDiscount(subtotal, get().discountCode, get().items);
     return discountResult.discountAmount;
   },
+}), {
+  name: CART_STORAGE_KEY,
+  storage: createJSONStorage(() => localStorage),
 }));
 
