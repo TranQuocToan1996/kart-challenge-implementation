@@ -1,102 +1,162 @@
-# React + TypeScript + Vite
+# Cart Challenge - E-commerce Shopping Cart
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern e-commerce shopping cart application built with React, TypeScript, and Vite. Features product listing, cart management, discount codes, and order placement.
+Github page URL: https://TranQuocToan1996.github.io/kart-challenge-implementation/
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🛒 Shopping cart functionality with add/remove/update quantities
+- 🎫 Discount code support (HAPPYHOURS, BUYGETONE)
+- 📦 Product listing with pagination
+- ✅ Order confirmation page
+- 🎨 Modern UI with Tailwind CSS
+- ⚡ Fast development with Vite
+- 🔄 State management with Zustand
+- 📡 API integration with React Query
+- 🖼️ Lazy image loading for better performance
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **Tailwind CSS** - Styling
+- **Zustand** - State management
+- **React Query** - Data fetching and caching
+- **Axios** - HTTP client
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Node.js** (version 18 or higher recommended)
+- **npm** (comes with Node.js) or **yarn**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone the repository:
+```bash
+git clone https://github.com/TranQuocToan1996/kart-challenge-implementation
+cd kart-challenge-implementation
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Install dependencies:
+```bash
+npm install
 ```
 
+3. Set up environment variables:
+   - Create a `.env` file in the root directory
+   - Add the following variables:
+```env
+VITE_API_BASE_URL=https://orderfoodonline.deno.dev/api
+VITE_API_KEY=your_api_key_here
+```
 
-TODO checklist
-Features & Functionality
-[ ] Add toast notifications - Show success/error messages for cart actions
-Design & UI/UX
-[ ] Match Figma design exactly - Review design.fig and fix spacing, colors, typography
-[ ] Add animations/transitions - Smooth transitions for cart updates, modal opens
-[ ] Improve mobile experience - Test and optimize for mobile devices (375px and below)
-[ ] Add hover states - Ensure all interactive elements have proper hover effects
-[ ] Fix responsive breakpoints - Test across all screen sizes (320px to large screens)
-Performance Monitoring & Analytics
-[ ] Add performance monitoring - Track Core Web Vitals (LCP, FID, CLS)
-[ ] Add error tracking - Integrate Sentry or similar for error monitoring
-[ ] Add analytics - Track user interactions (cart additions, orders placed)
-Documentation
-[ ] Update README.md - Replace template content with project-specific documentation
-[ ] Add setup instructions - Document how to run, build, and deploy
-[ ] Add architecture documentation - Document folder structure and design decisions
-Security
-[ ] Move API key to environment variables - Don't hardcode API keys in source code
-[ ] Add input sanitization - Sanitize user inputs (discount codes, quantities)
-[ ] Add rate limiting on client - Prevent excessive API calls
-[ ] Validate API responses - Use Zod or similar to validate API response schemas
-DevOps & CI/CD
-[ ] Set up CI/CD pipeline - GitHub Actions for linting, testing, building
-[ ] Add pre-commit hooks - Run linting and tests before commits
-[ ] Add build optimization - Code splitting, tree shaking, minification
-[ ] Set up deployment Github page
+   **Note:** In Vite, environment variables must be prefixed with `VITE_` to be exposed to the client-side code.
+
+### Running the Project
+
+#### Development Mode
+
+Start the development server:
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173` (or the next available port).
+
+#### Production Build
+
+Build the project for production:
+```bash
+npm run build
+```
+
+The optimized build will be in the `dist/` directory.
+
+#### Preview Production Build
+
+Preview the production build locally:
+```bash
+npm run preview
+```
+
+### Other Commands
+
+- **Lint code:**
+```bash
+npm run lint
+```
+
+## Project Structure
+
+```
+src/
+├── components/     # React components
+│   ├── Cart.tsx
+│   ├── CartItem.tsx
+│   ├── DiscountCodeInput.tsx
+│   ├── LazyImage.tsx
+│   ├── Loading.tsx
+│   ├── OrderConfirmation.tsx
+│   ├── Pagination.tsx
+│   ├── ProductCard.tsx
+│   └── QuantitySelector.tsx
+├── pages/         # Page components
+│   └── HomePage.tsx
+├── hooks/         # Custom React hooks
+│   ├── useOrder.ts
+│   └── useProducts.ts
+├── services/      # API services
+│   └── api.ts
+├── store/         # State management (Zustand)
+│   └── cartStore.ts
+├── types/         # TypeScript type definitions
+│   └── index.ts
+├── utils/         # Utility functions
+│   └── discount.ts
+└── constants/     # Constants and configuration
+    └── index.ts
+```
+
+## API Integration
+
+The application integrates with an external API for product data and order placement. The API configuration can be set via environment variables:
+
+- `VITE_API_BASE_URL` - Base URL for the API (defaults to production URL)
+- `VITE_API_KEY` - API key for authenticated requests
+
+The app includes fallback functionality - if the API is unavailable, it will use local product data from `public/product.json`.
+
+## Discount Codes
+
+The application supports the following discount codes:
+
+- **HAPPYHOURS** - 18% discount on the entire order
+- **BUYGETONE** - Buy one get one free (applied to eligible items)
+
+## TODO Checklist
+
+### Features & Functionality
+- [ ] Add toast notifications - Show success/error messages for cart actions
+
+### Design & UI/UX
+- [ ] Add animations/transitions - Smooth transitions for cart updates, modal opens
+- [ ] Add hover states - Ensure all interactive elements have proper hover effects
+
+### Performance Monitoring & Analytics
+- [ ] Add performance monitoring - Track Core Web Vitals (LCP, FID, CLS)
+- [ ] Add error tracking - Integrate Sentry or similar for error monitoring
+- [ ] Add analytics - Track user interactions (cart additions, orders placed)
+
+
+### DevOps & CI/CD
+- [ ] Set up CI/CD pipeline - GitHub Actions for linting, testing, building
+- [ ] Add pre-commit hooks - Run linting and tests before commits
+- [ ] Add build optimization - Code splitting, tree shaking, minification
+- [ ] Set up deployment Github page
+
+## License
+
+This project is part of a coding challenge implementation.
