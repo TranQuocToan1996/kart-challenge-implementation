@@ -149,7 +149,7 @@ export const Cart = ({ onOrderSuccess }: CartProps) => {
         <button
           onClick={handleConfirmOrder}
           disabled={items.length === 0}
-          className="w-full bg-primary-orange text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="w-full bg-[#C63B0F] text-white py-3 px-6 rounded-[24px] font-semibold text-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
         >
           Confirm Order
         </button>
