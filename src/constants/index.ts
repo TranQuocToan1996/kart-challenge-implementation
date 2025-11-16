@@ -1,9 +1,9 @@
 // API Configuration from environment variables
 // In Vite, environment variables must be prefixed with VITE_ to be exposed to the client
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
-  (import.meta.env.DEV
-    ? '/api'
-    : 'https://orderfoodonline.deno.dev/api');
+// In development, always use '/api' to leverage Vite proxy and avoid CORS issues
+export const API_BASE_URL = import.meta.env.DEV
+  ? '/api' // Use proxy in development to avoid CORS
+  : (import.meta.env.VITE_API_BASE_URL || 'https://orderfoodonline.deno.dev/api');
 
 export const API_KEY = import.meta.env.VITE_API_KEY || '';
 

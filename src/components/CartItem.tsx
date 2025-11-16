@@ -1,5 +1,6 @@
 import { useCartStore } from '../store/cartStore';
 import { LazyImage } from './LazyImage'; // ✅ TODO change: Use lazy loading component
+import { getAssetPath } from '../utils/assets';
 import type { CartItem as CartItemType } from '../types';
 
 interface CartItemProps {
@@ -39,7 +40,7 @@ export const CartItem = ({ item }: CartItemProps) => {
         aria-label={`Remove ${product.name} from cart`}
       >
         <img
-          src="/remove_product_from_cart.png"
+          src={getAssetPath('/remove_product_from_cart.png')}
           alt={`Remove ${product.name} from cart`}
           className="w-[18px] h-[18px]"
         />

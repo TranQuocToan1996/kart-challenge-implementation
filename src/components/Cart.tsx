@@ -1,6 +1,7 @@
 import { useCartStore } from '../store/cartStore';
 import { CartItem } from './CartItem';
 import { DiscountCodeInput } from './DiscountCodeInput';
+import { getAssetPath } from '../utils/assets';
 
 interface CartProps {
   onOrderSuccess: () => void;
@@ -38,7 +39,7 @@ export const Cart = ({ onOrderSuccess }: CartProps) => {
         <div className="flex flex-col items-center justify-center py-12">
           <div className="mb-4">
             <img
-              src="/empty_cart_icon.png"
+              src={getAssetPath('/empty_cart_icon.png')}
               alt="Empty cart"
               className="w-40 h-40"
             />
@@ -75,7 +76,7 @@ export const Cart = ({ onOrderSuccess }: CartProps) => {
 
         <div className="flex items-center justify-center p-3 mb-6 bg-[#FBF7F4] border border-gray-200 rounded-lg shadow-sm">
           <img
-            src="/neutral_carbon_icon.png"
+            src={getAssetPath('/neutral_carbon_icon.png')}
             alt="Carbon neutral"
             className="w-[18px] h-[18px] mr-2"
           />

@@ -1,6 +1,7 @@
 import { useCartStore } from '../store/cartStore';
 import { QuantitySelector } from './QuantitySelector';
 import { LazyImage } from './LazyImage'; // ✅ TODO change: Use lazy loading component
+import { getAssetPath } from '../utils/assets';
 import type { Product } from '../types';
 
 interface ProductCardProps {
@@ -44,7 +45,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 className="w-full px-4 py-2.5 bg-white text-black rounded-[19px] border border-[#B8A1A2] font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 transition-colors flex items-center justify-center gap-2 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] relative z-10"
               >
                 <img
-                  src="/add_to_cart_icon.png"
+                  src={getAssetPath('/add_to_cart_icon.png')}
                   alt="Add to cart"
                   className="w-[18px] h-[18px]"
                 />

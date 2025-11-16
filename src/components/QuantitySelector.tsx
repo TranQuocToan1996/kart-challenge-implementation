@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useCartStore } from '../store/cartStore';
+import { getAssetPath } from '../utils/assets';
 import type { Product } from '../types';
 
 interface QuantitySelectorProps {
@@ -95,7 +96,7 @@ export const QuantitySelector = ({ product, quantity }: QuantitySelectorProps) =
         aria-label="Decrease quantity"
       >
         <img
-          src="/decrement_numb_icon.png"
+          src={getAssetPath('/decrement_numb_icon.png')}
           alt="Decrease quantity"
           className="w-[18px] h-[18px]"
         />
@@ -137,7 +138,7 @@ export const QuantitySelector = ({ product, quantity }: QuantitySelectorProps) =
         aria-label="Increase quantity"
       >
         <img
-          src="/increment_numb_icon.png"
+          src={getAssetPath('/increment_numb_icon.png')}
           alt="Increase quantity"
           className="w-[18px] h-[18px]"
         />

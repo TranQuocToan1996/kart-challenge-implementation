@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL, API_KEY } from '../constants';
+import { getAssetPath } from '../utils/assets';
 import type { Product, OrderRequest, OrderResponse } from '../types';
 
 const apiClient = axios.create({
@@ -8,11 +9,22 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  // Add CORS configuration
+  withCredentials: false, // Don't send cookies
+});
+
+// Add request interceptor for CORS
+apiClient.interceptors.request.use((config) => {
+  // Ensure proper headers for CORS
+  if (!import.meta.env.DEV) {
+    config.headers['Access-Control-Allow-Origin'] = '*';
+  }
+  return config;
 });
 
 const loadFallbackProducts = async (): Promise<Product[]> => {
   try {
-    const response = await fetch('/product.json');
+    const response = await fetch(getAssetPath('/product.json'));
     if (!response.ok) {
       throw new Error('Failed to load fallback products');
     }
