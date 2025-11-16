@@ -9,6 +9,7 @@ export default {
       colors: {
         primary: {
           orange: '#FF6B35',
+          'quantity-selector': '#C63B0F',
         },
       },
       fontFamily: {

@@ -86,16 +86,16 @@ export const QuantitySelector = ({ product, quantity }: QuantitySelectorProps) =
 
     setIsEditing(false);
   };
-
+  // w-full px-4 py-2.5 bg-white text-black rounded-[19px] border border-[#B8A1A2] font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 transition-colors flex items-center justify-center gap-2
   return (
-    <div className="flex items-center gap-3 bg-white rounded-lg border border-gray-200 px-3 py-2">
+    <div className="flex items-center gap-0 bg-primary-quantity-selector rounded-[21px] border border-[#B94825] bg-[#C63B0F] w-full px-3 py-2 justify-center shadow-[0px_4px_4px_rgba(0,0,0,0.25)] relative z-10">
       <button
         onClick={handleDecrease}
         disabled={quantity <= 0}
-        className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="flex items-center justify-center hover:opacity-80 focus:outline-none transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
         aria-label="Decrease quantity"
       >
-        <span className="text-gray-600 font-semibold">−</span>
+        <span className="text-white font-semibold text-lg">−</span>
       </button>
       {isEditing ? (
         <input
@@ -106,14 +106,14 @@ export const QuantitySelector = ({ product, quantity }: QuantitySelectorProps) =
           onChange={handleInputChange}
           onBlur={handleInputBlur}
           onKeyDown={handleInputKeyDown}
-          className="w-12 text-base font-semibold text-gray-900 text-center border-b-2 border-primary-orange focus:outline-none bg-transparent"
+          className="text-base font-semibold text-white text-center border-b-2 border-white focus:outline-none bg-transparent w-8 mx-8"
           min="0"
           max="99"
         />
       ) : (
         <span
           onClick={handleQuantityClick}
-          className="text-base font-semibold text-gray-900 min-w-[24px] text-center cursor-pointer hover:text-primary-orange transition-colors"
+          className="text-base font-semibold text-white min-w-[24px] text-center cursor-pointer hover:opacity-80 transition-opacity mx-8"
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
@@ -130,10 +130,10 @@ export const QuantitySelector = ({ product, quantity }: QuantitySelectorProps) =
       <button
         onClick={handleIncrease}
         disabled={quantity >= 99}
-        className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="flex items-center justify-center hover:opacity-80 focus:outline-none transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
         aria-label="Increase quantity"
       >
-        <span className="text-gray-600 font-semibold">+</span>
+        <span className="text-white font-semibold text-lg">+</span>
       </button>
     </div>
   );
