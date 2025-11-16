@@ -3,6 +3,9 @@
 A modern e-commerce shopping cart application built with React, TypeScript, and Vite. Features product listing, cart management, discount codes, and order placement.
 Github page URL: https://TranQuocToan1996.github.io/kart-challenge-implementation/
 
+Origin requirements: https://github.com/oolio-group/kart-challenge 
+Fork: https://github.com/TranQuocToan1996/kart-challenge
+
 ## Features
 
 - 🛒 Shopping cart functionality with add/remove/update quantities
